@@ -1229,7 +1229,7 @@ void CHL2MPRules::CheckAllPlayersReady( void )
 	m_bHeardAllPlayersReady = true;
 }
 
-void CHalfLife2::InitDefaultAIRelationships( void )
+void CHL2MPRules::InitDefaultAIRelationships( void )
 	{
 		int i, j;
 

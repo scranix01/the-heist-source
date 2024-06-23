@@ -26,6 +26,11 @@
 #endif
 #define ANIMATION_CYCLE_MINFRAC		(1.0f / (1<<ANIMATION_CYCLE_BITS))
 
+#define GAME_NAME           "Project Heist"
+#define GAME_VERSION_MAJOR  0
+#define GAME_VERSION_MINOR  1
+#define GAME_VERSION_PATCH  1
+
 // Each mod defines these for itself.
 class CViewVectors
 {
@@ -530,6 +535,22 @@ typedef enum
 #define COLOR_GREY		Color(204, 204, 204, 255)
 #define COLOR_WHITE		Color(255, 255, 255, 255)
 #define COLOR_BLACK		Color(0, 0, 0, 255)
+
+// pretty log colours, warnings yellow, errors red - etc
+#define LOG_COLOR_RED       Color( 0xCC, 0x00, 0x00, 0xFF )
+#define LOG_COLOR_GREEN     Color( 0x00, 0xCC, 0x00, 0xFF )
+#define LOG_COLOR_BLUE      Color( 0x00, 0x00, 0xCC, 0xFF )
+#define LOG_COLOR_WHITE     Color( 0xFF, 0xFF, 0xFF, 0xFF )
+#define LOG_COLOR_YELLOW    Color( 0xFF, 0xFF, 0x00, 0xFF )
+#define LOG_COLOR_ORANGE    Color( 0xFF, 0x80, 0x00, 0xFF )
+#define LOG_COLOR_PURPLE    Color( 0x80, 0x00, 0x80, 0xFF )
+#define LOG_COLOR_MAGENTA   Color( 0xFF, 0x00, 0xFF, 0xFF )
+#define LOG_COLOR_CYAN      Color( 0x00, 0xFF, 0xFF, 0xFF )
+#define LOG_COLOR_GRAY      Color( 0xCC, 0xCC, 0xCC, 0xFF )
+#define LOG_COLOR_B_GRAY    Color( 0xDD, 0xDD, 0xDD, 0xFF )
+#define LOG_COLOR_B_RED     Color( 0xFF, 0x00, 0x00, 0xFF )
+#define LOG_COLOR_B_GREEN   Color( 0x00, 0xFF, 0x00, 0xFF )
+#define LOG_COLOR_B_BLUE    Color( 0x00, 0x00, 0xFF, 0xFF )
 
 // All NPCs need this data
 enum
