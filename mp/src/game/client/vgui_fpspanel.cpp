@@ -44,8 +44,7 @@ private:
     char m_szWatermark[256];
 };
 
-#define ORIGINAL_FPS_PANEL_WIDTH 400
-#define FPS_PANEL_WIDTH (2 * ORIGINAL_FPS_PANEL_WIDTH)
+#define FPS_PANEL_WIDTH 400
 
 //-----------------------------------------------------------------------------
 // Purpose:
@@ -94,7 +93,7 @@ void CFPSPanel::ComputeSize(void)
     int x = wide - FPS_PANEL_WIDTH;
     int y = 0;
     SetPos(x, y);
-    SetSize(FPS_PANEL_WIDTH, 2 * (6 * g_pVGuiSurface->GetFontTall(m_hFont) + 12));
+    SetSize(FPS_PANEL_WIDTH, 6 * g_pVGuiSurface->GetFontTall(m_hFont) + 12);
 }
 
 void CFPSPanel::ApplySchemeSettings(vgui::IScheme* pScheme)
@@ -212,7 +211,6 @@ void CFPSPanel::Paint()
         ypos += 2 + iFontTall;
     }
 }
-
 
 class CFPS : public IFPSPanel {
 private:
