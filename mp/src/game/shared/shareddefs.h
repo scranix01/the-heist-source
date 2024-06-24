@@ -29,7 +29,7 @@
 #define GAME_NAME           "Project Heist"
 #define GAME_VERSION_MAJOR  0
 #define GAME_VERSION_MINOR  1
-#define GAME_VERSION_PATCH  3
+#define GAME_VERSION_PATCH  1
 
 // Each mod defines these for itself.
 class CViewVectors
