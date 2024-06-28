@@ -87,3 +87,4 @@ compile_commands.json
 !sourcesdk_def.mak
 mp/src/game/client/Release_mod_sdk2013ce/client_sdk2013ce.vcxproj.FileListAbsolute.txt
 mp/src/game/server/Release_mod_sdk2013ce/server_sdk2013ce.vcxproj.FileListAbsolute.txt
+/mp/src/game/client/Release_mod_sdk2013ce
