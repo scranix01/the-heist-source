@@ -77,7 +77,12 @@ public:
 	virtual bool					UsesPowerOfTwoFrameBufferTexture() = 0;
 	virtual bool					UsesFullFrameBufferTexture() = 0;
 
-	virtual ClientShadowHandle_t	GetShadowHandle() const = 0;
+	virtual ClientShadowHandle_t	GetShadowHandle() const
+	{
+		return CLIENTSHADOW_INVALID_HANDLE;
+	}
+
+	//virtual ClientShadowHandle_t	GetShadowHandle() const = 0;
 
 	// Used by the leaf system to store its render handle.
 	virtual ClientRenderHandle_t&	RenderHandle() = 0;

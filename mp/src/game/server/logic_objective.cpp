@@ -66,7 +66,7 @@ void CHeistObjectiveHandler::nextObj(inputdata_t& inputData)
 	{
 		// Fire the primary objective completion event
 		m_OnPrimaryObjectiveComplete.FireOutput(inputData.pActivator, this);
-		ConColorMsg(LOG_COLOR_B_GREEN, "primary objective %d", m_nObjectiveCount);
+		ConColorMsg(LOG_COLOR_PURPLE, "primary objective %d", m_nObjectiveCount);
 
 		// Starts Next Primary Objective
 		m_nObjectiveCount++;
@@ -78,7 +78,7 @@ void CHeistObjectiveHandler::nextObj(inputdata_t& inputData)
 		// oh and because we arent storing a number we can kill this entity at any point, and it wont error.
 		// we just need to make the UI element reload, so i might rewrite the "kill" to not.... kill.
 		m_OnOptionalObjectiveComplete.FireOutput(inputData.pActivator, this);
-		ConColorMsg(LOG_COLOR_YELLOW, "secondary objective");
+		ConColorMsg(LOG_COLOR_MAGENTA, "secondary objective");
 
 	}
 
