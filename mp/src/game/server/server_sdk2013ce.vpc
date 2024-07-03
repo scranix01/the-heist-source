@@ -300,5 +300,9 @@ $Project "Server"
 				$File	"$SRCDIR\game\shared\hl2mp\weapon_stunstick.cpp"
 			}
 		}
+		$Folder	"HEIST"
+		{
+			$File	"$SRCDIR\game\server\logic_objective.cpp"
+		}
 	}
 }
