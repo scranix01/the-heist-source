@@ -143,13 +143,9 @@ public:
 	}
 #endif // DBGFLAG_VALIDATE
 
-	ISteamHTMLSurface *SteamHTMLSurface() { return m_SteamAPIContext.SteamHTMLSurface(); }
+	//ISteamHTMLSurface *SteamHTMLSurface() { return SteamHTMLSurface(); }
 
-	void OnHTMLMouseMoved( int x, int y )
-	{
-		if ( m_SteamAPIContext.SteamHTMLSurface() )
-			m_SteamAPIContext.SteamHTMLSurface()->MouseMove( m_unBrowserHandle, x, y );
-	}
+	void OnHTMLMouseMoved(int x, int y);
 
 protected:
 	virtual void ApplySchemeSettings( IScheme *pScheme );
@@ -310,7 +306,7 @@ private:
 	};
 	CUtlVector<CustomCursorCache_t> m_vecHCursor;
 
-	CSteamAPIContext m_SteamAPIContext;
+	// CSteamAPIContext CSteamAPIContext;
 	HHTMLBrowser m_unBrowserHandle;
 	CCallResult< HTML, HTML_BrowserReady_t > m_SteamCallResultBrowserReady;
 };
