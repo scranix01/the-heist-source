@@ -1372,7 +1372,7 @@ void CServerGameDLL::LevelShutdown( void )
 #ifndef NO_STEAM
 	IGameSystem::LevelShutdownPreClearSteamAPIContextAllSystems();
 
-	steamgameserverapicontext->Clear();
+	SteamAPI_Shutdown();
 #endif
 
 	g_pServerBenchmark->EndBenchmark();
