@@ -52,7 +52,7 @@ class ISceneFileCache;
 class IXboxSystem;	// Xbox 360 only
 class IMatchmaking;
 class IVideoServices;
-//class CSteamAPIContext;
+class CSteamAPIContext;
 class IClientReplayContext;
 class IReplayManager;
 class IEngineReplay;
