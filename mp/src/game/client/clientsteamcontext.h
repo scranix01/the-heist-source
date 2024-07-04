@@ -14,7 +14,7 @@ struct SteamLoggedOnChange_t
 	bool bLoggedOn;
 };
 
-class CClientSteamContext
+class CClientSteamContext : public CSteamAPIContext
 {
 public:
 	CClientSteamContext();

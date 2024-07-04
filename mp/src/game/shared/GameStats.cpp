@@ -1160,9 +1160,9 @@ bool CBaseGameStats_Driver::AddBaseDataForSend( KeyValues *pKV, StatSendType_t s
 
 #ifndef	NO_STEAM
 			// We can now get the game language from steam :)
-			if ( SteamApps() )
+			if ( steamapicontext && steamapicontext->SteamApps() )
 			{
-				const char *currentLanguage = SteamApps()->GetCurrentGameLanguage();
+				const char *currentLanguage = steamapicontext->SteamApps()->GetCurrentGameLanguage();
 				pKV->SetString( "Language", currentLanguage ? currentLanguage : "unknown" );
 			}
 #endif

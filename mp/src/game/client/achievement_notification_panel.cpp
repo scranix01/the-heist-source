@@ -104,14 +104,14 @@ void CAchievementNotificationPanel::FireGameEvent( IGameEvent * event )
 		if ( IsPC() )
 		{
 			// shouldn't ever get achievement progress if steam not running and user logged in, but check just in case
-			if ( !SteamUserStats() )
+			if ( !steamapicontext->SteamUserStats() )
 			{				
 				Msg( "Steam not running, achievement progress notification not displayed\n" );
 			}
 			else 
 			{
 				// use Steam to show achievement progress UI
-				SteamUserStats()->IndicateAchievementProgress( pchName, iCur, iMax );
+				steamapicontext->SteamUserStats()->IndicateAchievementProgress( pchName, iCur, iMax );
 			}
 		}
 		else 
