@@ -1723,7 +1723,7 @@ void CGameMovement::AirAccelerate( Vector& wishdir, float wishspeed, float accel
 		wishspd = GetAirSpeedCap();
 
 	// Determine veer amount
-	currentspeed = mv->m_vecVelocity.Dot(wishdir);
+	currentspeed = sqrt(DotProduct(mv->m_vecVelocity, mv->m_vecVelocity));
 
 	// See how much to add
 	addspeed = wishspd - currentspeed;
