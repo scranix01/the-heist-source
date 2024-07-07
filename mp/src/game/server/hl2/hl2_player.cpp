@@ -3809,7 +3809,7 @@ void CLogicPlayerProxy::Activate( void )
 
 	if ( m_hPlayer == NULL )
 	{
-		m_hPlayer = AI_GetSinglePlayer();
+		m_hPlayer = UTIL_GetLocalPlayer();
 	}
 }
 
