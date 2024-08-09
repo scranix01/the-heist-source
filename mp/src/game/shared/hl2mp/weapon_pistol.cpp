@@ -15,9 +15,6 @@
 #endif
 
 #include "weapon_hl2mpbasehlmpcombatweapon.h"
-#ifdef SDK2013CE
-#include "weapon_hl2mpbase_machinegun.h"
-#endif // SDK2013CE
 
 #define	PISTOL_FASTEST_REFIRE_TIME		0.1f
 #define	PISTOL_FASTEST_DRY_REFIRE_TIME	0.2f
@@ -33,17 +30,10 @@
 // CWeaponPistol
 //-----------------------------------------------------------------------------
 
-#ifdef SDK2013CE
-class CWeaponPistol : public CHL2MPMachineGun
-{
-public:
-	DECLARE_CLASS( CWeaponPistol, CHL2MPMachineGun );
-#else
 class CWeaponPistol : public CBaseHL2MPCombatWeapon
 {
 public:
 	DECLARE_CLASS( CWeaponPistol, CBaseHL2MPCombatWeapon );
-#endif // SDK2013CE
 
 	CWeaponPistol(void);
 
@@ -95,7 +85,7 @@ public:
 		return 0.5f; 
 	}
 	
-#if !defined( CLIENT_DLL ) || defined( SDK2013CE )
+#ifndef CLIENT_DLL
 	DECLARE_ACTTABLE();
 #endif
 
@@ -137,24 +127,9 @@ END_PREDICTION_DATA()
 LINK_ENTITY_TO_CLASS( weapon_pistol, CWeaponPistol );
 PRECACHE_WEAPON_REGISTER( weapon_pistol );
 
-#if !defined( CLIENT_DLL ) || defined( SDK2013CE )
+#ifndef CLIENT_DLL
 acttable_t CWeaponPistol::m_acttable[] = 
 {
-#ifdef SDK2013CE
-	{ ACT_MP_STAND_IDLE,				ACT_HL2MP_IDLE_PISTOL,					false },
-	{ ACT_MP_CROUCH_IDLE,				ACT_HL2MP_IDLE_CROUCH_PISTOL,			false },
-
-	{ ACT_MP_RUN,						ACT_HL2MP_RUN_PISTOL,					false },
-	{ ACT_MP_CROUCHWALK,				ACT_HL2MP_WALK_CROUCH_PISTOL,			false },
-
-	{ ACT_MP_ATTACK_STAND_PRIMARYFIRE,	ACT_HL2MP_GESTURE_RANGE_ATTACK_PISTOL,	false },
-	{ ACT_MP_ATTACK_CROUCH_PRIMARYFIRE,	ACT_HL2MP_GESTURE_RANGE_ATTACK_PISTOL,	false },
-
-	{ ACT_MP_RELOAD_STAND,				ACT_HL2MP_GESTURE_RELOAD_PISTOL,		false },
-	{ ACT_MP_RELOAD_CROUCH,				ACT_HL2MP_GESTURE_RELOAD_PISTOL,		false },
-
-	{ ACT_MP_JUMP,						ACT_HL2MP_JUMP_PISTOL,					false },
-#else
 	{ ACT_HL2MP_IDLE,					ACT_HL2MP_IDLE_PISTOL,					false },
 	{ ACT_HL2MP_RUN,					ACT_HL2MP_RUN_PISTOL,					false },
 	{ ACT_HL2MP_IDLE_CROUCH,			ACT_HL2MP_IDLE_CROUCH_PISTOL,			false },
@@ -163,7 +138,6 @@ acttable_t CWeaponPistol::m_acttable[] =
 	{ ACT_HL2MP_GESTURE_RELOAD,			ACT_HL2MP_GESTURE_RELOAD_PISTOL,		false },
 	{ ACT_HL2MP_JUMP,					ACT_HL2MP_JUMP_PISTOL,					false },
 	{ ACT_RANGE_ATTACK1,				ACT_RANGE_ATTACK_PISTOL,				false },
-#endif // SDK2013CE
 };
 
 
@@ -339,9 +313,6 @@ bool CWeaponPistol::Reload( void )
 	if ( fRet )
 	{
 		WeaponSound( RELOAD );
-#ifdef SDK2013CE
-		ToHL2MPPlayer(GetOwner())->DoAnimationEvent( PLAYERANIMEVENT_RELOAD );
-#endif // SDK2013CE
 		m_flAccuracyPenalty = 0.0f;
 	}
 	return fRet;

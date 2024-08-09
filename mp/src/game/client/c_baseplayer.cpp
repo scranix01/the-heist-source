@@ -1872,15 +1872,6 @@ void C_BasePlayer::ThirdPersonSwitch( bool bThirdperson )
 				}
 			}
 		}
-		
-#ifdef SDK2013CE
-		//Notify weapon.
-		CBaseCombatWeapon *pWeapon = GetActiveWeapon();
-		if ( pWeapon )
-		{
-			pWeapon->ThirdPersonSwitch( bThirdperson );
-		}
-#endif// SDK2013CE
 	}
 }
 

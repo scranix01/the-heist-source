@@ -536,11 +536,6 @@ public:
 	bool					WantsToOverrideViewmodelAttachments( void ) { return false; }
 #endif
 
-#ifdef SDK2013CE
-	//Tony; notifications of any third person switches.
-	virtual void			ThirdPersonSwitch( bool bThirdPerson ) {};
-#endif // SDK2013CE
-
 #endif // End client-only methods
 
 	virtual bool			CanLower( void ) { return false; }

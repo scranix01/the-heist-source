@@ -18,11 +18,6 @@
 #include "engine/IEngineSound.h"
 #include "SoundEmitterSystem/isoundemittersystembase.h"
 
-#ifdef SDK2013CE
-// memdbgon must be the last include file in a .cpp file!!!
-#include "tier0/memdbgon.h"
-#endif // SDK2013CE
-
 extern ConVar sv_footsteps;
 
 const char *g_ppszPlayerSoundPrefixNames[PLAYER_SOUNDS_MAX] =
@@ -126,7 +121,7 @@ void CHL2MP_Player::PlayStepSound( Vector &vecOrigin, surfacedata_t *psurface, f
 	EmitSound( filter, entindex(), ep );
 }
 
-#ifndef SDK2013CE
+
 //==========================
 // ANIMATION CODE
 //==========================
@@ -580,4 +575,3 @@ void CPlayerAnimState::GetOuterAbsVelocity( Vector& vel )
 	vel = GetOuter()->GetAbsVelocity();
 #endif
 }
-#endif // !SDK2013CE
