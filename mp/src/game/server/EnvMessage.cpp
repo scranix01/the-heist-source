@@ -105,7 +105,7 @@ void CMessage::InputShowMessage( inputdata_t &inputdata )
 		}
 		else
 		{
-			pPlayer = UTIL_GetLocalPlayer();
+			pPlayer = (gpGlobals->maxClients > 1) ? NULL : UTIL_GetLocalPlayer();
 		}
 
 		if ( pPlayer && pPlayer->IsPlayer() )
@@ -219,10 +219,12 @@ void CCredits::RollOutroCredits()
 {
 	sv_unlockedchapters.SetValue( "15" );
 	
-	CRecipientFilter filter;
-	filter.AddAllPlayers();
-	filter.MakeReliable();
-	UserMessageBegin(filter, "CreditsMsg");	
+	CBasePlayer *pPlayer = UTIL_GetLocalPlayer();
+
+	CSingleUserRecipientFilter user( pPlayer );
+	user.MakeReliable();
+
+	UserMessageBegin( user, "CreditsMsg" );
 		WRITE_BYTE( 3 );
 	MessageEnd();
 }
@@ -239,19 +241,20 @@ void CCredits::InputRollOutroCredits( inputdata_t &inputdata )
 
 void CCredits::InputShowLogo( inputdata_t &inputdata )
 {
-	CRecipientFilter filter;
-	filter.AddAllPlayers();
-	filter.MakeReliable();
+	CBasePlayer *pPlayer = UTIL_GetLocalPlayer();
+
+	CSingleUserRecipientFilter user( pPlayer );
+	user.MakeReliable();
 
 	if ( m_flLogoLength )
 	{
-		UserMessageBegin(filter, "LogoTimeMsg" );
+		UserMessageBegin( user, "LogoTimeMsg" );
 			WRITE_FLOAT( m_flLogoLength );
 		MessageEnd();
 	}
 	else
 	{
-		UserMessageBegin(filter, "CreditsMsg" );
+		UserMessageBegin( user, "CreditsMsg" );
 			WRITE_BYTE( 1 );
 		MessageEnd();
 	}
@@ -264,11 +267,12 @@ void CCredits::InputSetLogoLength( inputdata_t &inputdata )
 
 void CCredits::InputRollCredits( inputdata_t &inputdata )
 {
-	CRecipientFilter filter;
-	filter.AddAllPlayers();
-	filter.MakeReliable();
+	CBasePlayer *pPlayer = UTIL_GetLocalPlayer();
 
-	UserMessageBegin(filter, "CreditsMsg" );
+	CSingleUserRecipientFilter user( pPlayer );
+	user.MakeReliable();
+
+	UserMessageBegin( user, "CreditsMsg" );
 		WRITE_BYTE( 2 );
 	MessageEnd();
 }

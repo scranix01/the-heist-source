@@ -137,8 +137,6 @@ public:
 	void    CheckChatForReadySignal( CHL2MP_Player *pPlayer, const char *chatmsg );
 	const char *GetChatFormat( bool bTeamOnly, CBasePlayer *pPlayer );
 
-	//void InitDefaultAIRelationships(void);
-
 #endif
 	virtual void ClientDisconnected( edict_t *pClient );
 
