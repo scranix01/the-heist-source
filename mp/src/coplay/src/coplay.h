@@ -173,7 +173,7 @@ public:
         ConVarRef net_usesocketsforloopback("net_usesocketsforloopback");// allows connecting to 127.* addresses
         ConVarRef host_thread_mode("host_thread_mode");// fixes game logic speedup, see the README for the required fix for this
         net_usesocketsforloopback.SetValue(true);
-        host_thread_mode.SetValue(2);
+        //host_thread_mode.SetValue(2);
     }
 
     virtual void LevelInitPostEntity();
