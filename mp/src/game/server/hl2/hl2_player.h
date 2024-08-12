@@ -242,6 +242,10 @@ public:
 	virtual void		ForceDropOfCarriedPhysObjects( CBaseEntity *pOnlyIfHoldindThis );
 	virtual float		GetHeldObjectMass( IPhysicsObject *pHeldObject );
 
+#ifdef SDK2013CE
+	virtual CBaseEntity* GetHeldObject(void);
+#endif // SDK2013CE
+
 	virtual bool		IsFollowingPhysics( void ) { return (m_afPhysicsFlags & PFLAG_ONBARNACLE) > 0; }
 	void				InputForceDropPhysObjects( inputdata_t &data );
 

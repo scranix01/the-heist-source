@@ -1572,6 +1572,11 @@ void CPropAirboat::FireGun( )
 	Vector	vecGunPosition;
 	Vector vecForward;
 	GetAttachment( m_nGunBarrelAttachment, vecGunPosition, &vecForward );
+
+#ifdef SM_SP_FIXES
+	//SecobMod__Information: Thanks to Sub-Zero, we have working hit effects from the tau cannon.
+	CDisablePredictionFiltering disabler;
+#endif
 	
 	// NOTE: For the airboat, unable to fire really means the aim is clamped
 	Vector vecAimPoint;

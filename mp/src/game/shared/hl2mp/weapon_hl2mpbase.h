@@ -14,6 +14,10 @@
 #include "basecombatweapon_shared.h"
 #include "hl2mp_weapon_parse.h"
 
+#if defined(SM_AI_FIXES) && !defined(CLIENT_DLL)
+#include "ai_basenpc.h" 
+#endif
+
 #if defined( CLIENT_DLL )
 	#define CWeaponHL2MPBase C_WeaponHL2MPBase
 	void UTIL_ClipPunchAngleOffset( QAngle &in, const QAngle &punch, const QAngle &clip );

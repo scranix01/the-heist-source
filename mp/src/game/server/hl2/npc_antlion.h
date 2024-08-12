@@ -32,21 +32,21 @@ class CAI_AntlionFollowBehavior : public CAI_FollowBehavior
 public:
 
 	CAI_AntlionFollowBehavior()
-	 :	BaseClass( AIF_ANTLION )
+		: BaseClass(AIF_ANTLION)
 	{
 	}
 
-	bool FarFromFollowTarget( void )
-	{ 
-		return ( GetFollowTarget() && (GetAbsOrigin() - GetFollowTarget()->GetAbsOrigin()).LengthSqr() > ANTLION_FOLLOW_DISTANCE_SQR ); 
+	bool FarFromFollowTarget(void)
+	{
+		return (GetFollowTarget() && (GetAbsOrigin() - GetFollowTarget()->GetAbsOrigin()).LengthSqr() > ANTLION_FOLLOW_DISTANCE_SQR);
 	}
 
-	bool ShouldFollow( void )
+	bool ShouldFollow(void)
 	{
-		if ( GetFollowTarget() == NULL )
+		if (GetFollowTarget() == NULL)
 			return false;
-		
-		if ( GetEnemy() != NULL )
+
+		if (GetEnemy() != NULL)
 			return false;
 
 		return true;
@@ -74,163 +74,164 @@ class CNPC_Antlion : public CAI_BaseAntlionBase
 {
 public:
 
-	DECLARE_CLASS( CNPC_Antlion, CAI_BaseAntlionBase  );
+	DECLARE_CLASS(CNPC_Antlion, CAI_BaseAntlionBase);
 
-	CNPC_Antlion( void );
+	CNPC_Antlion(void);
 
-	virtual float	InnateRange1MinRange( void ) { return 50*12; }
-	virtual float	InnateRange1MaxRange( void ) { return 250*12; }
+	virtual float	InnateRange1MinRange(void) { return 50 * 12; }
+	virtual float	InnateRange1MaxRange(void) { return 250 * 12; }
 
-	bool		IsWorker( void ) const { return HasSpawnFlags( SF_ANTLION_WORKER ); }	// NOTE: IsAntlionWorker function must agree!
+	bool		IsWorker(void) const { return HasSpawnFlags(SF_ANTLION_WORKER); }	// NOTE: IsAntlionWorker function must agree!
 
-	float		GetIdealAccel( void ) const;
-	float		MaxYawSpeed( void );
-	bool		FInViewCone( CBaseEntity *pEntity );
-	bool		FInViewCone( const Vector &vecSpot );
-				
-	void		Activate( void );
-	void		HandleAnimEvent( animevent_t *pEvent );
-	void		StartTask( const Task_t *pTask );
-	void		RunTask( const Task_t *pTask );
-	void		IdleSound( void );
-	void		PainSound( const CTakeDamageInfo &info );
-	void		Precache( void );
-	void		Spawn( void );
-	int			OnTakeDamage_Alive( const CTakeDamageInfo &info );
-	void		TraceAttack( const CTakeDamageInfo &info, const Vector &vecDir, trace_t *ptr, CDmgAccumulator *pAccumulator );
-	void		BuildScheduleTestBits( void );
-	void		GatherConditions( void );
-	void		PrescheduleThink( void );
-	void		ZapThink( void );
-	void		BurrowUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+	float		GetIdealAccel(void) const;
+	float		MaxYawSpeed(void);
+	bool		FInViewCone(CBaseEntity* pEntity);
+	bool		FInViewCone(const Vector& vecSpot);
+
+	void		Activate(void);
+	void		HandleAnimEvent(animevent_t* pEvent);
+	void		StartTask(const Task_t* pTask);
+	void		RunTask(const Task_t* pTask);
+	void		IdleSound(void);
+	void		PainSound(const CTakeDamageInfo& info);
+	void		Precache(void);
+	void		Spawn(void);
+	int			OnTakeDamage_Alive(const CTakeDamageInfo& info);
+	void		TraceAttack(const CTakeDamageInfo& info, const Vector& vecDir, trace_t* ptr, CDmgAccumulator* pAccumulator);
+	void		BuildScheduleTestBits(void);
+	void		GatherConditions(void);
+	void		PrescheduleThink(void);
+	void		ZapThink(void);
+	void		BurrowUse(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE useType, float value);
 	bool		CreateVPhysics();
-				
-	bool		IsJumpLegal( const Vector &startPos, const Vector &apex, const Vector &endPos ) const;
-	bool		HandleInteraction( int interactionType, void *data, CBaseCombatCharacter *sender = NULL );
-	bool		QuerySeeEntity( CBaseEntity *pEntity, bool bOnlyHateOrFearIfNPC = false );
-	bool		ShouldPlayIdleSound( void );
-	bool		OverrideMoveFacing( const AILocalMoveGoal_t &move, float flInterval );
-	bool		IsValidEnemy(CBaseEntity *pEnemy);
-	bool		QueryHearSound( CSound *pSound );
-	bool		IsLightDamage( const CTakeDamageInfo &info );
-	bool		CreateBehaviors( void );
-	bool		ShouldHearBugbait( void ) { return ( m_bIgnoreBugbait == false ); }
-	int			SelectSchedule( void );
 
-	void		Touch( CBaseEntity *pOther );
+	bool		IsJumpLegal(const Vector& startPos, const Vector& apex, const Vector& endPos) const;
+	bool		HandleInteraction(int interactionType, void* data, CBaseCombatCharacter* sender = NULL);
+	bool		QuerySeeEntity(CBaseEntity* pEntity, bool bOnlyHateOrFearIfNPC = false);
+	bool		ShouldPlayIdleSound(void);
+	bool		OverrideMoveFacing(const AILocalMoveGoal_t& move, float flInterval);
+	bool		IsValidEnemy(CBaseEntity* pEnemy);
+	bool		QueryHearSound(CSound* pSound);
+	bool		IsLightDamage(const CTakeDamageInfo& info);
+	bool		CreateBehaviors(void);
+	bool		ShouldHearBugbait(void) { return (m_bIgnoreBugbait == false); }
+	int			SelectSchedule(void);
 
-	virtual int		RangeAttack1Conditions( float flDot, float flDist );
-	virtual int		MeleeAttack1Conditions( float flDot, float flDist );
-	virtual int		MeleeAttack2Conditions( float flDot, float flDist );
-	virtual int		GetSoundInterests( void ) { return (BaseClass::GetSoundInterests())|(SOUND_DANGER|SOUND_PHYSICS_DANGER|SOUND_THUMPER|SOUND_BUGBAIT); }
-	virtual	bool	IsHeavyDamage( const CTakeDamageInfo &info );
+	void		Touch(CBaseEntity* pOther);
 
-	Class_T		Classify( void ) { return CLASS_ANTLION; }
-	
-	void		Event_Killed( const CTakeDamageInfo &info );
-	bool		FValidateHintType ( CAI_Hint *pHint );
-	void		GatherEnemyConditions( CBaseEntity *pEnemy );
-	
-	bool		IsAllied( void );
-	bool		ShouldGib( const CTakeDamageInfo &info );
-	bool		CorpseGib( const CTakeDamageInfo &info );
+	virtual int		RangeAttack1Conditions(float flDot, float flDist);
+	virtual int		MeleeAttack1Conditions(float flDot, float flDist);
+	virtual int		MeleeAttack2Conditions(float flDot, float flDist);
+	virtual int		GetSoundInterests(void) { return (BaseClass::GetSoundInterests()) | (SOUND_DANGER | SOUND_PHYSICS_DANGER | SOUND_THUMPER | SOUND_BUGBAIT); }
+	virtual	bool	IsHeavyDamage(const CTakeDamageInfo& info);
+
+	Class_T		Classify(void) { return CLASS_ANTLION; }
+
+	void		Event_Killed(const CTakeDamageInfo& info);
+	bool		FValidateHintType(CAI_Hint* pHint);
+	void		GatherEnemyConditions(CBaseEntity* pEnemy);
+
+	bool		IsAllied(void);
+	bool		ShouldGib(const CTakeDamageInfo& info);
+	bool		CorpseGib(const CTakeDamageInfo& info);
 
 	float		GetMaxJumpSpeed() const { return 1024.0f; }
 
-	void		SetFightTarget( CBaseEntity *pTarget );
-	void		InputFightToPosition( inputdata_t &inputdata );
-	void		InputStopFightToPosition( inputdata_t &inputdata );
-	void		InputJumpAtTarget( inputdata_t &inputdata );
+	void		SetFightTarget(CBaseEntity* pTarget);
+	void		InputFightToPosition(inputdata_t& inputdata);
+	void		InputStopFightToPosition(inputdata_t& inputdata);
+	void		InputJumpAtTarget(inputdata_t& inputdata);
 
-	void		SetFollowTarget( CBaseEntity *pTarget );
-	int			TranslateSchedule( int scheduleType );
+	void		SetFollowTarget(CBaseEntity* pTarget);
+	int			TranslateSchedule(int scheduleType);
 
-	virtual		Activity NPC_TranslateActivity( Activity baseAct );
+	virtual		Activity NPC_TranslateActivity(Activity baseAct);
 
-	bool		ShouldResumeFollow( void );
-	bool		ShouldAbandonFollow( void );
+	bool		ShouldResumeFollow(void);
+	bool		ShouldAbandonFollow(void);
 
-	void		SetMoveState( AntlionMoveState_e state );
-	int			ChooseMoveSchedule( void );
+	void		SetMoveState(AntlionMoveState_e state);
+	int			ChooseMoveSchedule(void);
 
 	DECLARE_DATADESC();
 
 	bool		m_bStartBurrowed;
 	float		m_flNextJumpPushTime;
 
-	void		SetParentSpawnerName( const char *szName ) { m_strParentSpawner = MAKE_STRING( szName ); }
-	const char *GetParentSpawnerName( void ) { return STRING( m_strParentSpawner ); }
+	void		SetParentSpawnerName(const char* szName) { m_strParentSpawner = MAKE_STRING(szName); }
+	const char* GetParentSpawnerName(void) { return STRING(m_strParentSpawner); }
 
-	virtual void StopLoopingSounds( void );
-	bool    AllowedToBePushed( void );
+	virtual void StopLoopingSounds(void);
+	bool    AllowedToBePushed(void);
 
-	virtual Vector BodyTarget( const Vector &posSrc, bool bNoisy = true );
+	virtual Vector BodyTarget(const Vector& posSrc, bool bNoisy = true);
 	virtual float GetAutoAimRadius() { return 36.0f; }
 
-	void	ClearBurrowPoint( const Vector &origin );
+	void	ClearBurrowPoint(const Vector& origin);
 
-	void	Flip( bool bZapped = false );
+	void	Flip(bool bZapped = false);
 
 	bool CanBecomeRagdoll();
 
-	virtual void	NotifyDeadFriend( CBaseEntity *pFriend );
+	virtual void	NotifyDeadFriend(CBaseEntity* pFriend);
 
 private:
 
-	inline CBaseEntity *EntityToWatch( void );
-	void				UpdateHead( void );
+	inline CBaseEntity* EntityToWatch(void);
+	void				UpdateHead(void);
 
-	bool	FindChasePosition( const Vector &targetPos, Vector &result );
-	bool	GetGroundPosition( const Vector &testPos, Vector &result );
-	bool	GetPathToSoundFleePoint( int soundType );
-	inline bool	IsFlipped( void );
+	bool	FindChasePosition(const Vector& targetPos, Vector& result);
+	bool	GetGroundPosition(const Vector& testPos, Vector& result);
+	bool	GetPathToSoundFleePoint(int soundType);
+	inline bool	IsFlipped(void);
 
-	void	Burrow( void );
-	void	Unburrow( void );
-	
-	void	InputUnburrow( inputdata_t &inputdata );
-	void	InputBurrow( inputdata_t &inputdata );
-	void	InputBurrowAway( inputdata_t &inputdata );
-	void	InputDisableJump( inputdata_t &inputdata );
-	void	InputEnableJump( inputdata_t &inputdata );
-	void	InputIgnoreBugbait( inputdata_t &inputdata );
-	void	InputHearBugbait( inputdata_t &inputdata );
+	void	Burrow(void);
+	void	Unburrow(void);
 
-	bool	FindBurrow( const Vector &origin, float distance, int type, bool excludeNear = true );
-	void	CreateDust( bool placeDecal = true );
+	void	InputUnburrow(inputdata_t& inputdata);
+	void	InputBurrow(inputdata_t& inputdata);
+	void	InputBurrowAway(inputdata_t& inputdata);
+	void	InputDisableJump(inputdata_t& inputdata);
+	void	InputEnableJump(inputdata_t& inputdata);
+	void	InputIgnoreBugbait(inputdata_t& inputdata);
+	void	InputHearBugbait(inputdata_t& inputdata);
 
-	bool	ValidBurrowPoint( const Vector &point );
-	bool	CheckLanding( void );
-	bool	Alone( void );
-	bool	CheckAlertRadius( void );
-	bool	ShouldJump( void );
+	bool	FindBurrow(const Vector& origin, float distance, int type, bool excludeNear = true);
+	void	CreateDust(bool placeDecal = true);
 
-	void	MeleeAttack( float distance, float damage, QAngle& viewPunch, Vector& shove );
-	void	SetWings( bool state );
-	void	StartJump( void );
-	void	LockJumpNode( void );
+	bool	ValidBurrowPoint(const Vector& point);
+	bool	CheckLanding(void);
+	bool	Alone(void);
+	bool	CheckAlertRadius(void);
+	bool	ShouldJump(void);
 
-	bool	IsUnusableNode(int iNodeID, CAI_Hint *pHint);
+	void	MeleeAttack(float distance, float damage, QAngle& viewPunch, Vector& shove);
+	void	SetWings(bool state);
+	void	StartJump(void);
+	void	LockJumpNode(void);
 
-	bool	OnObstructionPreSteer( AILocalMoveGoal_t *pMoveGoal, float distClear, AIMoveResult_t *pResult );
-	
-	void	ManageFleeCapabilities( bool bEnable );
-	
-	int		SelectFailSchedule( int failedSchedule, int failedTask, AI_TaskFailureCode_t taskFailCode );
-	bool	IsFirmlyOnGround( void );
-	void	CascadePush( const Vector &vecForce );
+	bool	IsUnusableNode(int iNodeID, CAI_Hint* pHint);
 
-	virtual bool CanRunAScriptedNPCInteraction( bool bForced = false );
+	bool	OnObstructionPreSteer(AILocalMoveGoal_t* pMoveGoal, float distClear, AIMoveResult_t* pResult);
 
-	virtual void Ignite ( float flFlameLifetime, bool bNPCOnly, float flSize, bool bCalledByLevelDesigner );
-	virtual bool GetSpitVector( const Vector &vecStartPos, const Vector &vecTarget, Vector *vecOut );
-	virtual bool InnateWeaponLOSCondition( const Vector &ownerPos, const Vector &targetPos, bool bSetConditions );
-	virtual bool FCanCheckAttacks( void );
-	
-	bool SeenEnemyWithinTime( float flTime );
-	void DelaySquadAttack( float flDuration );
+	void	ManageFleeCapabilities(bool bEnable);
 
-#if HL2_EPISODIC
+	int		SelectFailSchedule(int failedSchedule, int failedTask, AI_TaskFailureCode_t taskFailCode);
+	bool	IsFirmlyOnGround(void);
+	void	CascadePush(const Vector& vecForce);
+
+	virtual bool CanRunAScriptedNPCInteraction(bool bForced = false);
+
+	virtual void Ignite(float flFlameLifetime, bool bNPCOnly, float flSize, bool bCalledByLevelDesigner);
+	virtual bool GetSpitVector(const Vector& vecStartPos, const Vector& vecTarget, Vector* vecOut);
+	virtual bool InnateWeaponLOSCondition(const Vector& ownerPos, const Vector& targetPos, bool bSetConditions);
+	virtual bool FCanCheckAttacks(void);
+
+	bool SeenEnemyWithinTime(float flTime);
+	void DelaySquadAttack(float flDuration);
+
+
+#ifdef HL2_EPISODIC
 	void DoPoisonBurst();
 #endif
 
@@ -252,7 +253,7 @@ private:
 
 	COutputEvent	m_OnReachFightGoal;	//Reached our scripted destination to fight to
 	COutputEvent	m_OnUnBurrowed;	//Unburrowed
-	
+
 	Vector		m_vecSavedJump;
 	Vector		m_vecLastJumpAttempt;
 
@@ -278,7 +279,7 @@ private:
 	bool		m_bDontExplode;			// Suppresses worker poison burst when drowning, failing to unburrow, etc.
 	bool		m_bLoopingStarted;
 	bool		m_bSuppressUnburrowEffects;	// Don't kick up dust when spawning
-#if HL2_EPISODIC
+#ifdef HL2_EPISODIC
 	bool		m_bHasDoneAirAttack;  ///< only allowed to apply this damage once per glide
 #endif
 
@@ -292,7 +293,7 @@ private:
 
 protected:
 	int m_poseHead_Yaw, m_poseHead_Pitch;
-	virtual void	PopulatePoseParameters( void );
+	virtual void	PopulatePoseParameters(void);
 
 private:
 
@@ -388,19 +389,19 @@ class CAntlionRepellant : public CPointEntity
 {
 	DECLARE_DATADESC();
 public:
-	DECLARE_CLASS( CAntlionRepellant, CPointEntity );
+	DECLARE_CLASS(CAntlionRepellant, CPointEntity);
 	~CAntlionRepellant();
 
 public:
-	void Spawn( void );
-	void InputEnable( inputdata_t &inputdata );
-	void InputDisable( inputdata_t &inputdata );
-	float GetRadius( void );
-	void SetRadius( float flRadius ) { m_flRepelRadius = flRadius; }
+	void Spawn(void);
+	void InputEnable(inputdata_t& inputdata);
+	void InputDisable(inputdata_t& inputdata);
+	float GetRadius(void);
+	void SetRadius(float flRadius) { m_flRepelRadius = flRadius; }
 
-	static bool IsPositionRepellantFree( Vector vDesiredPos );
+	static bool IsPositionRepellantFree(Vector vDesiredPos);
 
-	void OnRestore( void );
+	void OnRestore(void);
 
 private:
 
@@ -408,11 +409,11 @@ private:
 	bool  m_bEnabled;
 };
 
-extern bool IsAntlion( CBaseEntity *pEntity );
-extern bool IsAntlionWorker( CBaseEntity *pEntity );
+extern bool IsAntlion(CBaseEntity* pEntity);
+extern bool IsAntlionWorker(CBaseEntity* pEntity);
 
 #ifdef HL2_EPISODIC
-extern float AntlionWorkerBurstRadius( void );
+extern float AntlionWorkerBurstRadius(void);
 #endif // HL2_EPISODIC
 
 #endif // NPC_ANTLION_H

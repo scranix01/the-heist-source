@@ -40,7 +40,11 @@ public:
 	void		AddViewKick( void );
 	float		GetDamageForActivity( Activity hitActivity );
 
+#ifdef SM_AI_FIXES
+	virtual int WeaponMeleeAttack1Condition(float flDot, float flDist);
+#else
 	virtual int WeaponMeleeAttack1Condition( float flDot, float flDist );
+#endif
 	void		SecondaryAttack( void )	{	return;	}
 
 	// Animation event

@@ -65,28 +65,28 @@ class CNPCSimpleTalker;
 class CNPCSimpleTalkerExpresser : public CAI_ComponentWithOuter<CNPCSimpleTalker, CAI_Expresser>
 {
 public:
-	CNPCSimpleTalkerExpresser( CNPCSimpleTalker *pOuter )
-		: CAI_ComponentWithOuter<CNPCSimpleTalker, CAI_Expresser>( pOuter )
+	CNPCSimpleTalkerExpresser(CNPCSimpleTalker* pOuter)
+		: CAI_ComponentWithOuter<CNPCSimpleTalker, CAI_Expresser>(pOuter)
 	{
 		EndMonolog();
 	}
 
-	virtual int SpeakRawSentence( const char *pszSentence, float delay, float volume = VOL_NORM, soundlevel_t soundlevel = SNDLVL_TALKING, CBaseEntity *pListener = NULL );
+	virtual int SpeakRawSentence(const char* pszSentence, float delay, float volume = VOL_NORM, soundlevel_t soundlevel = SNDLVL_TALKING, CBaseEntity* pListener = NULL);
 
 	// --------------------------------
 	//
 	// Monologue operations
 	//
-	
-	bool HasMonolog( void ) { return m_iMonologIndex != -1; };
-	void BeginMonolog( char *pszSentenceName, CBaseEntity *pListener );
-	void EndMonolog( void );
-	void SpeakMonolog( void );
 
-	void SuspendMonolog( float flInterval );
-	void ResumeMonolog( void );
+	bool HasMonolog(void) { return m_iMonologIndex != -1; };
+	void BeginMonolog(char* pszSentenceName, CBaseEntity* pListener);
+	void EndMonolog(void);
+	void SpeakMonolog(void);
 
-	CBaseEntity *GetMonologueTarget()						{ return m_hMonologTalkTarget.Get(); }
+	void SuspendMonolog(float flInterval);
+	void ResumeMonolog(void);
+
+	CBaseEntity* GetMonologueTarget() { return m_hMonologTalkTarget.Get(); }
 
 	// --------------------------------
 	//
@@ -104,49 +104,49 @@ public:
 
 class CNPCSimpleTalker : public CAI_PlayerAlly
 {
-	DECLARE_CLASS( CNPCSimpleTalker, CAI_PlayerAlly );
+	DECLARE_CLASS(CNPCSimpleTalker, CAI_PlayerAlly);
 public:
-	void			Precache( void );
-	virtual bool	KeyValue( const char *szKeyName, const char *szValue );
+	void			Precache(void);
+	virtual bool	KeyValue(const char* szKeyName, const char* szValue);
 
-	virtual CAI_Expresser *CreateExpresser() { return new CNPCSimpleTalkerExpresser(this); }
-	
-	virtual void			StartFollowing( CBaseEntity *pLeader ) { m_FollowBehavior.SetFollowTarget( pLeader ); DeferSchedulingToBehavior( &m_FollowBehavior ); }
-	virtual void			StopFollowing( ) { m_FollowBehavior.SetFollowTarget( NULL ); DeferSchedulingToBehavior( NULL ); }
-	CBaseEntity		*GetFollowTarget( void ) { return m_FollowBehavior.GetFollowTarget(); }
+	virtual CAI_Expresser* CreateExpresser() { return new CNPCSimpleTalkerExpresser(this); }
 
-	virtual void	OnChangeRunningBehavior( CAI_BehaviorBase *pOldBehavior,  CAI_BehaviorBase *pNewBehavior );
-	bool			OnBehaviorChangeStatus( CAI_BehaviorBase *pBehavior, bool fCanFinishSchedule );
+	virtual void			StartFollowing(CBaseEntity* pLeader) { m_FollowBehavior.SetFollowTarget(pLeader); DeferSchedulingToBehavior(&m_FollowBehavior); }
+	virtual void			StopFollowing() { m_FollowBehavior.SetFollowTarget(NULL); DeferSchedulingToBehavior(NULL); }
+	CBaseEntity* GetFollowTarget(void) { return m_FollowBehavior.GetFollowTarget(); }
 
-	int				PlayScriptedSentence( const char *pszSentence, float delay, float volume, soundlevel_t soundlevel, bool bConcurrent, CBaseEntity *pListener );
-	virtual void 	FollowerUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-	void			Event_Killed( const CTakeDamageInfo &info );
-	int				OnTakeDamage_Alive( const CTakeDamageInfo &info );
+	virtual void	OnChangeRunningBehavior(CAI_BehaviorBase* pOldBehavior, CAI_BehaviorBase* pNewBehavior);
+	bool			OnBehaviorChangeStatus(CAI_BehaviorBase* pBehavior, bool fCanFinishSchedule);
+
+	int				PlayScriptedSentence(const char* pszSentence, float delay, float volume, soundlevel_t soundlevel, bool bConcurrent, CBaseEntity* pListener);
+	virtual void 	FollowerUse(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE useType, float value);
+	void			Event_Killed(const CTakeDamageInfo& info);
+	int				OnTakeDamage_Alive(const CTakeDamageInfo& info);
 
 	bool CreateBehaviors()
 	{
-		AddBehavior( &m_FollowBehavior );
+		AddBehavior(&m_FollowBehavior);
 		return BaseClass::CreateBehaviors();
 	}
 
-	void		BuildScheduleTestBits( void );
-	void			PrescheduleThink( void );
-	virtual int		SelectSchedule( void );
+	void		BuildScheduleTestBits(void);
+	void			PrescheduleThink(void);
+	virtual int		SelectSchedule(void);
 	virtual int		SelectNonCombatSpeechSchedule();
-	void			StartTask( const Task_t *pTask );
-	void			RunTask( const Task_t *pTask );
-	void			HandleAnimEvent( animevent_t *pEvent );
-	Activity	NPC_TranslateActivity( Activity newActivity );
+	void			StartTask(const Task_t* pTask);
+	void			RunTask(const Task_t* pTask);
+	void			HandleAnimEvent(animevent_t* pEvent);
+	Activity	NPC_TranslateActivity(Activity newActivity);
 
-	virtual void	OnStartingFollow( CBaseEntity *pTarget );
-	virtual void	OnStoppingFollow( CBaseEntity *pTarget );
+	virtual void	OnStartingFollow(CBaseEntity* pTarget);
+	virtual void	OnStoppingFollow(CBaseEntity* pTarget);
 
-	virtual void			DeferAllIdleSpeech( float flDelay, CAI_BaseNPC *pIgnore = NULL );
-	bool		ShouldSpeakRandom( int iChance, float flModifier );
+	virtual void			DeferAllIdleSpeech(float flDelay, CAI_BaseNPC* pIgnore = NULL);
+	bool		ShouldSpeakRandom(int iChance, float flModifier);
 
 	// For following
-	virtual void	DeclineFollowing( void ) {}
-	void			LimitFollowers( CBaseEntity *pPlayer, int maxFollowers );
+	virtual void	DeclineFollowing(void) {}
+	void			LimitFollowers(CBaseEntity* pPlayer, int maxFollowers);
 
 	float			GetUseTime() const { return m_useTime; }
 
@@ -165,7 +165,7 @@ public:
 		SCHED_TALKER_BETRAYED,
 
 		// !ALWAYS LAST!
-		NEXT_SCHEDULE,	
+		NEXT_SCHEDULE,
 	};
 
 	//=========================================================
@@ -188,47 +188,47 @@ public:
 		TASK_TALKER_WAIT_FOR_SEMAPHORE,
 
 		// !ALWAYS LAST!
-		NEXT_TASK,		
+		NEXT_TASK,
 	};
 
-//private:
-	virtual bool IsValidSpeechTarget( int flags, CBaseEntity *pEntity );
-	
-	CBaseEntity		*FindNearestFriend(bool fPlayer);
+	//private:
+	virtual bool IsValidSpeechTarget(int flags, CBaseEntity* pEntity);
 
-	bool IsOkToSpeak( void );
+	CBaseEntity* FindNearestFriend(bool fPlayer);
 
-	void SayHelloToPlayer( CBaseEntity *pPlayer );
-	virtual bool CanSayHello( void );
-	virtual int	 FIdleHello( void );
+	bool IsOkToSpeak(void);
+
+	void SayHelloToPlayer(CBaseEntity* pPlayer);
+	virtual bool CanSayHello(void);
+	virtual int	 FIdleHello(void);
 
 	// Inputs
-	void InputIdleRespond( inputdata_t &inputdata );
+	void InputIdleRespond(inputdata_t& inputdata);
 
 	// Conversations / communication
-	void			IdleRespond( void );
-	int				FIdleSpeak( void );
-	void			FIdleSpeakWhileMoving( void );
-	int				FIdleStare( void );
-	bool			SpeakQuestionFriend( CBaseEntity *pFriend );
-	bool			SpeakAnswerFriend( CBaseEntity *pFriend );
-	void			TrySmellTalk( void );
+	void			IdleRespond(void);
+	int				FIdleSpeak(void);
+	void			FIdleSpeakWhileMoving(void);
+	int				FIdleStare(void);
+	bool			SpeakQuestionFriend(CBaseEntity* pFriend);
+	bool			SpeakAnswerFriend(CBaseEntity* pFriend);
+	void			TrySmellTalk(void);
 
-	virtual void	SetAnswerQuestion( CNPCSimpleTalker *pSpeaker );
-	
-	bool ShouldSuspendMonolog( void );
-	bool ShouldResumeMonolog( void );
-	void OnResumeMonolog() 		{	Speak( TLK_RESUME ); }
-	
+	virtual void	SetAnswerQuestion(CNPCSimpleTalker* pSpeaker);
+
+	bool ShouldSuspendMonolog(void);
+	bool ShouldResumeMonolog(void);
+	void OnResumeMonolog() { Speak(TLK_RESUME); }
+
 	int			m_nSpeak;						// number of times initiated talking
 	float		m_flNextIdleSpeechTime;
 
-	static char *m_szFriends[TLK_CFRIENDS];		// array of friend names
-	CBaseEntity		*EnumFriends( CBaseEntity *pentPrevious, int listNumber, bool bTrace );
+	static const char* m_szFriends[TLK_CFRIENDS];		// array of friend names
+	CBaseEntity* EnumFriends(CBaseEntity* pentPrevious, int listNumber, bool bTrace);
 
-	virtual int		FriendNumber( int arrayNumber )	{ return arrayNumber; }
-	void			ShutUpFriends( void );
-	void			AlertFriends( CBaseEntity *pKiller );
+	virtual int		FriendNumber(int arrayNumber) { return arrayNumber; }
+	void			ShutUpFriends(void);
+	void			AlertFriends(CBaseEntity* pKiller);
 
 	string_t	m_iszUse;						// Custom +USE sentence group (follow)
 	string_t	m_iszUnUse;						// Custom +USE sentence group (stop following)

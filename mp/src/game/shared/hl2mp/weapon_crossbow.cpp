@@ -830,6 +830,11 @@ void CWeaponCrossbow::DoLoadEffect( void )
 //-----------------------------------------------------------------------------
 void CWeaponCrossbow::SetChargerState( ChargerState_t state )
 {
+
+#ifdef SM_SP_FIXES
+	CDisablePredictionFiltering disabler;
+#endif
+
 	// Make sure we're setup
 	CreateChargerEffects();
 

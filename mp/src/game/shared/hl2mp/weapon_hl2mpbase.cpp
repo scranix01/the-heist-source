@@ -118,8 +118,11 @@ void CWeaponHL2MPBase::WeaponSound( WeaponSound_t sound_type, float soundtime /*
 		CBroadcastRecipientFilter filter; // this is client side only
 		if ( !te->CanPredict() )
 			return;
-				
+#ifdef SM_SP_FIXES
+		CBaseEntity::EmitSound(filter, GetHL2MPPlayerOwner()->entindex(), shootsound, &GetHL2MPPlayerOwner()->GetAbsOrigin());
+#else
 		CBaseEntity::EmitSound( filter, GetPlayerOwner()->entindex(), shootsound, &GetPlayerOwner()->GetAbsOrigin() ); 
+#endif
 #else
 		BaseClass::WeaponSound( sound_type, soundtime );
 #endif

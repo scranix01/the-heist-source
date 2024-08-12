@@ -3161,6 +3161,13 @@ float CHL2_Player::GetHeldObjectMass( IPhysicsObject *pHeldObject )
 	return mass;
 }
 
+#ifdef SDK2013CE
+CBaseEntity* CHL2_Player::GetHeldObject(void)
+{
+	return PhysCannonGetHeldEntity(GetActiveWeapon());
+}
+#endif // SDK2013CE
+
 //-----------------------------------------------------------------------------
 // Purpose: Force the player to drop any physics objects he's carrying
 //-----------------------------------------------------------------------------
@@ -3802,7 +3809,11 @@ void CLogicPlayerProxy::Activate( void )
 
 	if ( m_hPlayer == NULL )
 	{
+#ifdef SM_SP_FIXES
+		m_hPlayer = UTIL_GetLocalPlayer();
+#else
 		m_hPlayer = AI_GetSinglePlayer();
+#endif
 	}
 }
 

@@ -15,19 +15,19 @@
 #include "hl2_shareddefs.h"
 
 #ifdef SDK2013CE
-	#include "weapon_physcannon.h"
+#include "weapon_physcannon.h"
 #endif
 
 #ifdef CLIENT_DLL
-	#define CHalfLife2 C_HalfLife2
-	#define CHalfLife2Proxy C_HalfLife2Proxy
+#define CHalfLife2 C_HalfLife2
+#define CHalfLife2Proxy C_HalfLife2Proxy
 #endif
 
 
 class CHalfLife2Proxy : public CGameRulesProxy
 {
 public:
-	DECLARE_CLASS( CHalfLife2Proxy, CGameRulesProxy );
+	DECLARE_CLASS(CHalfLife2Proxy, CGameRulesProxy);
 	DECLARE_NETWORKCLASS();
 };
 
@@ -35,25 +35,27 @@ public:
 class CHalfLife2 : public CSingleplayRules
 {
 public:
-	DECLARE_CLASS( CHalfLife2, CSingleplayRules );
+	DECLARE_CLASS(CHalfLife2, CSingleplayRules);
 
 	// Damage Query Overrides.
-	virtual bool			Damage_IsTimeBased( int iDmgType );
+	virtual bool			Damage_IsTimeBased(int iDmgType);
 	// TEMP:
-	virtual int				Damage_GetTimeBased( void );
-	
-	virtual bool			ShouldCollide( int collisionGroup0, int collisionGroup1 );
-	virtual bool			ShouldUseRobustRadiusDamage(CBaseEntity *pEntity);
+	virtual int				Damage_GetTimeBased(void);
+
+	virtual bool			ShouldCollide(int collisionGroup0, int collisionGroup1);
+	virtual bool			ShouldUseRobustRadiusDamage(CBaseEntity* pEntity);
 #ifndef CLIENT_DLL
-	virtual bool			ShouldAutoAim( CBasePlayer *pPlayer, edict_t *target );
-	virtual float			GetAutoAimScale( CBasePlayer *pPlayer );
-	virtual float			GetAmmoQuantityScale( int iAmmoIndex );
+	virtual bool			ShouldAutoAim(CBasePlayer* pPlayer, edict_t* target);
+	virtual float			GetAutoAimScale(CBasePlayer* pPlayer);
+	virtual float			GetAmmoQuantityScale(int iAmmoIndex);
 	virtual void			LevelInitPreEntity();
 #endif
 
 private:
+#ifndef SM_SP_FIXES
 	// Rules change for the mega physgun
-	CNetworkVar( bool, m_bMegaPhysgun );
+	CNetworkVar(bool, m_bMegaPhysgun);
+#endif
 
 #ifdef CLIENT_DLL
 
@@ -66,41 +68,49 @@ private:
 	CHalfLife2();
 	virtual ~CHalfLife2() {}
 
-	virtual void			Think( void );
+	virtual void			Think(void);
 
-	virtual bool			ClientCommand( CBaseEntity *pEdict, const CCommand &args );
-	virtual void			PlayerSpawn( CBasePlayer *pPlayer );
+	virtual bool			ClientCommand(CBaseEntity* pEdict, const CCommand& args);
+	virtual void			PlayerSpawn(CBasePlayer* pPlayer);
 
-	virtual void			InitDefaultAIRelationships( void );
-	virtual const char*		AIClassText(int classType);
-	virtual const char *GetGameDescription( void ) { return "Half-Life 2"; }
+	virtual void			InitDefaultAIRelationships(void);
+	virtual const char* AIClassText(int classType);
+	virtual const char* GetGameDescription(void) { return "Half-Life 2"; }
 
 	// Ammo
-	virtual void			PlayerThink( CBasePlayer *pPlayer );
-	virtual float			GetAmmoDamage( CBaseEntity *pAttacker, CBaseEntity *pVictim, int nAmmoType );
+	virtual void			PlayerThink(CBasePlayer* pPlayer);
+	virtual float			GetAmmoDamage(CBaseEntity* pAttacker, CBaseEntity* pVictim, int nAmmoType);
 
+#ifndef SM_SP_FIXES
 	virtual bool			ShouldBurningPropsEmitLight();
+#endif
+
 public:
 
-	bool AllowDamage( CBaseEntity *pVictim, const CTakeDamageInfo &info );
+	bool AllowDamage(CBaseEntity* pVictim, const CTakeDamageInfo& info);
 
-	bool	NPC_ShouldDropGrenade( CBasePlayer *pRecipient );
-	bool	NPC_ShouldDropHealth( CBasePlayer *pRecipient );
-	void	NPC_DroppedHealth( void );
-	void	NPC_DroppedGrenade( void );
-	bool	MegaPhyscannonActive( void ) { return m_bMegaPhysgun;	}
-	
+	bool	NPC_ShouldDropGrenade(CBasePlayer* pRecipient);
+	bool	NPC_ShouldDropHealth(CBasePlayer* pRecipient);
+	void	NPC_DroppedHealth(void);
+	void	NPC_DroppedGrenade(void);
+
+#ifndef SM_SP_FIXES
+	bool	MegaPhyscannonActive(void) { return m_bMegaPhysgun; }
+#endif
+
+#ifndef SM_AI_FIXES
 	virtual bool IsAlyxInDarknessMode();
+#endif
 
 private:
 
 	float	m_flLastHealthDropTime;
 	float	m_flLastGrenadeDropTime;
 
-	void AdjustPlayerDamageTaken( CTakeDamageInfo *pInfo );
-	float AdjustPlayerDamageInflicted( float damage );
+	void AdjustPlayerDamageTaken(CTakeDamageInfo* pInfo);
+	float AdjustPlayerDamageInflicted(float damage);
 
-	int						DefaultFOV( void ) { return 75; }
+	int						DefaultFOV(void) { return 75; }
 #endif
 };
 
@@ -111,7 +121,7 @@ private:
 inline CHalfLife2* HL2GameRules()
 {
 #if ( !defined( HL2_DLL ) && !defined( HL2_CLIENT_DLL ) ) || defined( HL2MP )
-	Assert( 0 );	// g_pGameRules is NOT an instance of CHalfLife2 and bad things happen
+	Assert(0);	// g_pGameRules is NOT an instance of CHalfLife2 and bad things happen
 #endif
 
 	return static_cast<CHalfLife2*>(g_pGameRules);
