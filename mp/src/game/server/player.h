@@ -567,10 +567,6 @@ public:
 	virtual CBaseEntity		*GetHeldObject( void );
 #endif // SDK2013CE
 
-#ifdef SDK2013CE
-	virtual CBaseEntity* GetHeldObject(void);
-#endif // SDK2013CE
-
 	void					CheckSuitUpdate();
 	void					SetSuitUpdate(const char *name, int fgroup, int iNoRepeat);
 	virtual void			UpdateGeigerCounter( void );
