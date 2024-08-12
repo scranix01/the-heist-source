@@ -74,17 +74,17 @@ void FinishClientPutInServer( CHL2MP_Player *pPlayer )
 	if (gpGlobals->maxClients > 1)
 #endif
 	{
-		const ConVar* hostname = cvar->FindVar("hostname");
-		const char* title = (hostname) ? hostname->GetString() : "MESSAGE OF THE DAY";
+	//	const ConVar* hostname = cvar->FindVar("hostname");
+	//	const char* title = (hostname) ? hostname->GetString() : "MESSAGE OF THE DAY";
 
-		KeyValues* data = new KeyValues("data");
-		data->SetString("title", title);		// info panel title
-		data->SetString("type", "1");			// show userdata from stringtable entry
-		data->SetString("msg", "motd");		// use this stringtable entry
-		data->SetBool("unload", sv_motd_unload_on_dismissal.GetBool());
+	//	KeyValues* data = new KeyValues("data");
+	//	data->SetString("title", title);		// info panel title
+	//	data->SetString("type", "1");			// show userdata from stringtable entry
+	//	data->SetString("msg", "motd");		// use this stringtable entry
+	//	data->SetBool("unload", sv_motd_unload_on_dismissal.GetBool());
 
-		pPlayer->ShowViewPortPanel(PANEL_INFO, true, data);
-		data->deleteThis();
+	//	pPlayer->ShowViewPortPanel(PANEL_INFO, true, data);
+	//	data->deleteThis();
 	}
 
 #ifdef SecobMod__SAVERESTORE 

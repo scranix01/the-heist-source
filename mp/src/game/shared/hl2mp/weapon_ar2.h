@@ -75,7 +75,7 @@ protected:
 	bool					m_bShotDelayed;
 	int						m_nVentPose;
 	
-#ifndef CLIENT_DLL
+#if !defined( CLIENT_DLL ) || defined( SDK2013CE )
 	DECLARE_ACTTABLE();
 
 #if defined(SM_AI_FIXES) && !defined(CLIENT_DLL)
