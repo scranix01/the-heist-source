@@ -94,7 +94,7 @@ struct animevent_t;
 struct studiohdr_t;
 class CStudioHdr;
 
-extern void FireTargets( const char *targetName, CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+extern void FireTargets(const char* targetName, CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE useType, float value);
 
 // people gib if their health is <= this at the time of death
 #define	GIB_HEALTH_VALUE	-30

@@ -1811,6 +1811,12 @@ void C_BaseAnimating::MaintainSequenceTransitions( IBoneSetup &boneSetup, float 
 		return;
 	}
 
+	//if (IsAboutToRagdoll())
+	//{
+	//	m_nPrevNewSequenceParity = m_nNewSequenceParity;
+		//return;
+	//}
+
 	m_SequenceTransitioner.CheckForSequenceChange( 
 		boneSetup.GetStudioHdr(),
 		GetSequence(),
